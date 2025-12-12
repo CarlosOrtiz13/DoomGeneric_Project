@@ -1,3 +1,4 @@
+/*Pulls in keyboard interfaces*/
 #include "classic.h"
 #include "keyboard.h"
 #include "io/io.h"
@@ -12,7 +13,7 @@
 
 
 static const uint8_t scancode_to_dvk_map[] = {
-    
+/*Maps scancodes to literal characters*/   
     0x00, DVK_ESCAPE, DVK_1, '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 0x08,
     0x00, DVK_Q, DVK_W, DVK_E, 'R', DVK_T, 'Y', 'U', 'I', 'O', 'P', '[', ']', DVK_ENTER,
     DVK_LCTRL, DVK_A, DVK_S, DVK_D, DVK_F, 'G', 'H', 'J', 'K', 'L', ';', '\'', 
@@ -22,6 +23,7 @@ static const uint8_t scancode_to_dvk_map[] = {
 };
 
 static const uint8_t scancode_to_char_map[] = {
+    /*Maps scancode to printable characters*/
     0x00, 0x1B, '1', '2', '3', '4', '5',
     '6', '7', '8', '9', '0', '-', '=',
     0x08, '\t', 'Q', 'W', 'E', 'R', 'T',
@@ -37,6 +39,7 @@ static const uint8_t scancode_to_char_map[] = {
 };
 
 struct keyboard classic_keyboard = {
+    /*Keyboard subsystem*/
     .name = {"Classic"},
     .init = classic_keyboard_init
 };
@@ -45,6 +48,7 @@ struct keyboard classic_keyboard = {
 static bool is_extended_key = false;
 static bool is_caps_lock_on = false;
 
+/*Bounds checking*/
 uint8_t classic_keyboard_scancode_to_dvk(uint8_t scancode);
 char classic_keyboard_scancode_to_char(uint8_t scancode);
 
@@ -60,6 +64,7 @@ uint8_t classic_keyboard_scancode_to_dvk(uint8_t scancode)
 
 char classic_keyboard_scancode_to_char(uint8_t scancode)
 {
+    /*Bounds checking + Caps lock logic*/
     size_t size = sizeof(scancode_to_char_map) / sizeof(uint8_t);
     if (scancode >= size)
     {
@@ -89,6 +94,7 @@ char classic_keyboard_scancode_to_char(uint8_t scancode)
 
 void classic_keyboard_handle_interrupt()
 {
+    /*ISR callback*/
     uint8_t scancode = insb(KEYBOARD_INPUT_PORT);
 
     if (scancode == CLASSIC_KEYBOARD_EXTENDED)
@@ -152,12 +158,14 @@ cleanup:
 
 struct keyboard* classic_init()
 {
+    /*Returns pointer to driver object*/
     return &classic_keyboard;
 }
 
 
 int classic_keyboard_init()
 {
+    /*Hooks ISR*/
     idt_register_interrupt_callback(ISR_KEYBOARD_INTERRUPT, classic_keyboard_handle_interrupt);
 
     outb(PS2_PORT, PS2_COMMAND_ENABLE_FIRST_PORT);
