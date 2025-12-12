@@ -1,11 +1,12 @@
 section .asm
 
+/*Hardware port I/O boundary*/
 global insb
 global insw
 global outb
 global outw
 
-insb:
+insb:    /*Input byte from I/O port*/
     push ebp
     mov ebp, esp
 
@@ -16,7 +17,7 @@ insb:
     pop ebp
     ret
 
-insw:
+insw:    /*Input word from I/O port*/
     push ebp
     mov ebp, esp
 
@@ -27,7 +28,7 @@ insw:
     pop ebp
     ret
 
-outb:
+outb:    /*Output byte from I/O port*/
     push ebp
     mov ebp, esp
 
@@ -38,7 +39,7 @@ outb:
     pop ebp
     ret
 
-outw:
+outw:    /*Output word from I/O port*/
     push ebp
     mov ebp, esp
 
