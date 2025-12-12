@@ -4,19 +4,22 @@
 #include "keyboard.h"
 #include <stdint.h>
 
+/*PS/2 keyboard I/O*/
 #define PS2_PORT 0x64
 #define PS2_COMMAND_ENABLE_FIRST_PORT 0xAE
 #define KEYBOARD_INPUT_PORT 0x60
 
 #define ISR_KEYBOARD_INTERRUPT 0x21
 
+/*Scancode Flags*/
 #define CLASSIC_KEYBOARD_KEY_RELEASED 0x80
 #define CLASSIC_KEYBOARD_EXTENDED 0xE0
 
+/*Driver entry points*/
 struct keyboard* classic_init();
 int classic_keyboard_init(void);
 
-
+/*Internal key codes*/
 #define DVK_ESCAPE      0x01
 #define DVK_1           0x02
 #define DVK_Q           0x10
