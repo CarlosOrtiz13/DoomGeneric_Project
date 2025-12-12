@@ -8,9 +8,9 @@
 enum KEYBOARD_EVENT_TYPE
 {
     KEYBOARD_EVENT_NONE = 0,
-    KEYBOARD_EVENT_PRESS = 1,
-    KEYBOARD_EVENT_RELEASE = 2,
-    KEYBOARD_EVENT_CHARACTER = 3
+    KEYBOARD_EVENT_PRESS = 1,      /*Key down*/
+    KEYBOARD_EVENT_RELEASE = 2,    /*Key up*/
+    KEYBOARD_EVENT_CHARACTER = 3    /*Text input*/
 };
 
 struct keyboard_event
@@ -24,7 +24,7 @@ struct keyboard_event
 //struct task;
 //struct keyboard;
 
-typedef int (*KEYBOARD_INIT_FUNCTION)();
+typedef int (*KEYBOARD_INIT_FUNCTION)();    /*Driver init hook*/
 
 struct keyboard
 {
@@ -35,12 +35,12 @@ struct keyboard
     struct keyboard* next;
 };
 
-void keyboard_init();
+void keyboard_init();    /*Initialize keyboard subsystem + event queue*/
 
-void keyboard_push_event(const struct keyboard_event* event);
+void keyboard_push_event(const struct keyboard_event* event);    /*Queue event*/
 
-int keyboard_pop_event(struct keyboard_event* event);
+int keyboard_pop_event(struct keyboard_event* event);    /*Dequeue next event*/
 
-int keyboard_insert(struct keyboard* keyboard);
+int keyboard_insert(struct keyboard* keyboard);    /*Register keyboard driver*/
 
 #endif
