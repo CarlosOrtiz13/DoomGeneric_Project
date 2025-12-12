@@ -121,7 +121,7 @@ A bootable OS image is generated at:
 ./bin/os.bin
 
 Running DoomOS in QEMU
-qemu-system-i386 -drive format=raw,file=./bin/os.bin -m 512M
+: qemu-system-i386 -drive format=raw,file=./bin/os.bin -m 512M
 
 Controls
 Action	Key
@@ -134,3 +134,4 @@ Summary of Architectural Changes
 
 DoomOS evolved from a learning OS into a full game unikernel for DOOM.
 By removing the shell, filesystem, multitasking, and desktop abstractions, the DOOM engine runs directly on hardware with maximum determinism.
+
